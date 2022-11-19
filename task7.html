@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/task7.css">
+
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+
+       /**
+         * Функция для отправки формы средствами Ajax
+         * @author Дизайн студия ox2.ru
+         **/
+        function AjaxFormRequest(result_id,form_id,url) {
+            jQuery.ajax({
+                url:     url, //Адрес подгружаемой страницы
+                type:     "POST", //Тип запроса
+                dataType: "html", //Тип данных
+                data: jQuery("#"+form_id).serialize(), 
+                success: function(response) { //Если все нормально
+                document.getElementById(result_id).innerHTML = response;
+            },
+            error: function(response) { //Если ошибка
+            document.getElementById(result_id).innerHTML = "Ошибка при отправке формы";
+            }
+         });
+    }
+</script>
+
+</head>
+<body>
+
+    <!-- Блок в который выводим инфу -->
+    <div class="result_div_id" id="result_div_id"
+    style="position: absolute;
+    top: 0;
+    right: 0;
+    height: 100px;
+    width: 20%;
+    border: 1px solid gray; 
+    padding: 10px;">
+        Тут будет вывод нашей формы<br/>
+        <br/>
+        <em>Дизайн студия ALBERT STUDIO</em>
+    </div>
+
+    <!-- Добавляем поле name -->
+    <div class="forma">
+        <form name="test" method="post" action="" id="form_id">
+            <p><b>Ваше имя:</b><br>
+            <input type="text" name="name" id="somebodyname" size="40">
+            </p>
+            <p><b>E-mail:</b><br>
+                <input type="email" name="email" id="somebodymail" size="40" onblur="validateEmail()">
+            </p>
+            <p><b>Пароль:</b>
+                <div>
+                    <input id="password1" width="100%" type="password" size="40">
+                </div>
+                
+            <p><b>Подтвердите пароль:</b>
+                <div>
+                    <input id="password2" type="password" size="40" onblur="validatePassword()">
+                </div>
+            </p>
+            <p><span style="margin-left: 0;"><b>Пол:</b></span>
+                <input type="radio" id="radio-1-1" name="Gender" value="male" class="regular-radio" 
+                /><label for="radio-1-1"></label><span>Мужчина</span>
+                <input type="radio" id="radio-1-2" name="Gender" value="female" class="regular-radio" 
+                /><label for="radio-1-2"></label><span>Женщина</span>
+            </p>
+            <p><b>Ваши навыки:</b><Br><span style="display:block; height: 5px"></span>
+            <input type="checkbox" id="checkbox-1-1" class="regular-checkbox" name="browser" value="ie"><label for="checkbox-1-1"></label><span>Знания html и css</span><Br>
+            <input type="checkbox" id="checkbox-1-2" class="regular-checkbox" name="browser" value="ie"><label for="checkbox-1-2"></label><span>Знания Perl</span><Br>
+            <input type="checkbox" id="checkbox-1-3" class="regular-checkbox" name="browser" value="ie"><label for="checkbox-1-3"></label><span>Знания ASP</span><Br>
+            <input type="checkbox" id="checkbox-1-4" class="regular-checkbox" name="browser" value="ie"><label for="checkbox-1-4"></label><span>Знания Adobe Photoshop</span><Br>
+            <input type="checkbox" id="checkbox-1-5" class="regular-checkbox" name="browser" value="ie"><label for="checkbox-1-5"></label><span>Знания JAVA</span><Br>
+            <input type="checkbox" id="checkbox-1-6" class="regular-checkbox" name="browser" value="ie"><label for="checkbox-1-6"></label><span>Знания JavaScript</span><Br>
+            <input type="checkbox" id="checkbox-1-7" class="regular-checkbox" name="browser" value="ie"><label for="checkbox-1-7"></label><span>Знания Flash</span><Br>
+            </p>
+            <p><b>Дополнительные сведения о себе:</b><Br>
+            <textarea name="comment" id="somebodyinfo" cols="40" rows="3"></textarea></p>
+            <p>
+                <!-- <input type="submit" value="Отправить" onclick="validatePassword()"> -->
+            <input type="button" value="Отправить" onclick="AjaxFormRequest('result_div_id', 'form_id', 'form.php')" />
+            <input type="reset" value="Очистить" onchange="clearForm()"></p>
+        </form>
+
+
+
+
+        <script type="text/javascript">
+            window.onload = function () {
+                document.getElementById("password1").onblur = validatePassword;
+                document.getElementById("password2").onblur = validatePassword;
+            }
+            function validateEmail(){
+                var email=document.getElementById("somebodymail").value;
+                var r = email.match(/^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i);
+                if (!r){
+                    // document.getElementById("somebodymail").setCustomValidity("email Don't Match");
+                    alert('Уверены что email введен верно?')
+                    return false
+                }
+            }
+            function validatePassword(){
+            var pass2=document.getElementById("password2").value;
+            var pass1=document.getElementById("password1").value;
+            if (pass1!=pass2 || pass1=="" || pass2=="")
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            //empty string means no validation error
+            }
+  
+            function clearForm(){
+                document.getElementsByTagName("checkbox").value = "";
+                document.getElementsByTagName("password").value = "";
+                document.getElementsByTagName("radio").value = "";
+                document.getElementById("somebodyinfo").value = "";
+                document.getElementById("somebodyname").value = "";
+                document.getElementById("somebodymail").value = "";
+            }
+        </script>
+
+
+
+
+
+
+    </div>
+</body>
+</html>

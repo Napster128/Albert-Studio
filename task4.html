@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <div id="hoverColor" class="container">
+        <style>
+            body{
+                background-color: rgb(13, 134, 114);
+            }
+          #img__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 50vh;
+            margin-top: 25vh;
+            background-color: #000;
+          }
+  
+          .div__img {
+            width: 24%;
+            margin: 4px;
+            height: 90%;
+            background-color: #fff;
+          }
+        </style>
+
+
+        <div id="img__box">
+          <div class="div__img"></div>
+          <div class="div__img"></div>
+          <div class="div__img"></div>
+          <div class="div__img"></div>
+        </div>
+
+
+        <script>
+            img__box.onclick = tabler;
+            img__box.onmouseover = img__box.onmouseout = handler;
+            function handler(event) {
+                var Mass = document.querySelectorAll("#img__box .div__img");
+                let rand = Math.random() * (Mass.length);
+                var i = Math.floor(rand);
+                if (event.type == 'mouseover') {
+                    var step;
+                    for (step = 0; step < Mass.length; step++) {
+                        Mass[step].style.backgroundColor = "#fff";
+                    }
+                }
+                if (event.type == 'mouseout') {
+                    Mass[i].style.backgroundColor = "rgb(255, 208, 0)";
+                }
+            }
+            function tabler(event) {
+                var Mass = document.querySelectorAll("#img__box .div__img");
+                let rand = Math.random() * (Mass.length);
+                var i = Math.floor(rand);
+                var step;
+                for (step = 0; step < Mass.length; step++) {
+                    Mass[step].style.backgroundColor = "#fff";
+                }
+                Mass[i].style.backgroundColor = "rgb(255, 208, 0)";
+            }
+        </script>
+      </div>
+
+    
+</body>
+</html>

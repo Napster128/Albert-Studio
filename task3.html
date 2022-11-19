@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table.append</title>
+</head>
+<body>
+
+
+    <style>
+        body {
+            background-color: #2bc09b;
+        }
+    </style>
+
+    <h1>Добавление ячейки в строке с помощью DOM javascript</h1>
+    <p>Скрипт добавляет ячейку в строку, после нажатия на ссылку.</p>
+
+    <a href="javascript://" onclick="addRow('myTable');return false;">Добавить ячейку</a>
+    <table id="myTable" cellspacing="0" border="1">
+        <tbody>
+            <tr>
+                <td>row1_column1</td>
+                <td>row1_column1</td>
+            </tr>
+            <tr>
+                <td>row2_column1</td>
+                <td>row2_column2</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        function addRow(id){
+            var elements = document.querySelectorAll('tbody > tr'); 
+            for (var i = 0; i < elements.length; i++) { 
+                // alert( elements[i].innerHTML );
+                var td = document.createElement('td');
+                td.innerHTML = 'row1_column1'; 
+                elements[i].appendChild(td);
+            }
+        }
+    </script>
+
+</body>
+</html>

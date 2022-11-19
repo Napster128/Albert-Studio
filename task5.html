@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2</title>
+    <link rel="stylesheet" href="assets/css/task5.css">
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="head">
+            <input type="checkbox" id="check-menu">
+            <label for="check-menu"></label>
+            <span>Menu</span>
+            <div class="menu">
+                <div class="menu__item">
+                    <a href="#block1">item 1</a>
+                </div>
+                <div class="menu__item">
+                    <a href="#block2"><div>item 2</div></a>
+                </div>
+                <div class="menu__item">
+                    <a href="#block3"><div>item 3</div></a>
+                </div>
+                <div class="menu__item">
+                    <a href="#block4"><div>item 4</div></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div id="block1" class="container__item"><span>container__item 1</span></div>
+        <div class="container__item"><span>container__item 2</span></div>
+        <div style="flex-basis: 100%;" class="container__item"><span>container__item 3</span></div>
+        <div class="container__item"><span>container__item 4</span></div>
+        <div class="container__item"><span>container__item 5</span></div>
+        <div style="flex-basis: 60%;" class="container__item"><span>container__item 6</span></div>
+        <div class="container__item"><span>container__item 7</span></div>
+        <div id="block2" class="container__item"><span>container__item 1</span></div>
+        <div class="container__item"><span>container__item 2</span></div>
+        <div style="flex-basis: 100%;" class="container__item"><span>container__item 3</span></div>
+        <div class="container__item"><span>container__item 4</span></div>
+        <div class="container__item"><span>container__item 5</span></div>
+        <div class="container__item"><span>container__item 6</span></div>
+        <div class="container__item"><span>container__item 7</span></div>
+        
+        <div id="block3" class="container__item color1"><span>container__item 1</span></div>
+        <div class="container__item color1"><span>container__item 2</span></div>
+        <div style="flex-basis: 100%;" class="container__item color1"><span>container__item 3</span></div>
+        <div class="container__item color1"><span>container__item 4</span></div>
+        <div class="container__item color1"><span>container__item 5</span></div>
+        <div style="flex-basis: 60%;" class="container__item color1"><span>container__item 6</span></div>
+        <div class="container__item color1"><span>container__item 7</span></div>
+        <div class="container__item color1"><span>container__item 1</span></div>
+        <div class="container__item color1"><span>container__item 2</span></div>
+        <div style="flex-basis: 100%;" class="container__item color1"><span>container__item 3</span></div>
+        <div class="container__item color1"><span>container__item 4</span></div>
+        <div class="container__item color1"><span>container__item 5</span></div>
+        <div class="container__item color1"><span>container__item 6</span></div>
+        <div class="container__item color1"><span>container__item 7</span></div>
+    </div>
+
+    <script type="text/javascript">
+        // Начало jq функций
+        jQuery(document).ready(function(){
+            // Добавляем вызов функции к конкретным элементам, то есть
+            // по нажатию на конкретные ссылкки мы вызываем функцию
+            jQuery('.menu__item a[href^="#"]').click( function(){
+                // Тут мы получаем id элемента, который написан в ссылке
+                var scroll_el = jQuery(this).attr('href');
+                // тут мы получам расстояние до элемента, которые в ссылке
+                var destination = jQuery(scroll_el).offset().top;
+                // Проверочка)
+                if (jQuery(scroll_el).length != 0) {
+                    // Встроенная функция анимации до элемента
+                    jQuery('html, body').animate( { scrollTop: destination }, 1100 );
+                }
+                return false;
+            });
+        })
+    </script>
+
+
+
+
+
+    <!-- Список задач -->
+
+    <style>
+        .listOfTasks {
+            height: 100vh;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .todo {
+            display: inline-block;
+            margin: 20px auto;
+            border: 2px solid #eee;
+            padding: 10px 20px;
+            width: 40vw;
+            background-color: rgb(218, 91, 45);
+        }
+
+        .todo__text,
+        .todo__add {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .todo__add {
+            padding: 5px 10px;
+            width: 25%;
+        }
+
+        .todo__text {
+            padding: 5px;
+            width: 70%;
+        }
+
+        .todo__list {
+            text-align: left;
+            list-style-type: none;
+            padding-left: 0px;
+        }
+
+        .todo__list-item {
+            cursor: pointer;
+            padding: 5px;
+            line-height: 30px;
+            transition: all .2s linear;
+            font-size: 26px;
+            color: #eee;
+        }
+
+        .todo__list-item:nth-child(even) {
+            background-color: rgb(185, 99, 68);
+        }
+
+        .todo__list-item:hover {
+            background-color: rgb(148, 43, 25);
+        }
+
+        .todo__list-item_completed_yes {
+            text-decoration: line-through;
+        }
+
+        .todo__list-item-text {
+            display: inline-block;
+            max-width: 480px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .todo__list-item_completed_yes .todo__list-item-text {
+            text-decoration: line-through;
+            font-size: 24px;
+        }
+
+        .todo__list-item-remove {
+            float: right;
+            opacity: 0.3;
+            margin-left: 15px;
+        }
+
+        .todo__list-item-remove:hover {
+            opacity: 1;
+        }
+
+        .todo__caption{
+            color: #fff;
+            text-align: center;
+            font-size: 6em;
+        }
+
+        .todo__controls {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+    </style>    
+
+    <div id="block4" class="listOfTasks">
+        <div id="list" class="todo">
+            <h2 class="todo__caption">Список дел</h2>
+            <ul class="todo__list">
+            </ul>
+            <div class="todo__controls">
+                <input type="text" class="todo__text" />
+                <button disabled="disabled" class="todo__add">Добавить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // $(function () {...}); вызывает функцию после загрузки страницы
+        $(function() {
+        'use strict';
+
+        /**
+        * Конструктор, инициализирующий логику списка дел
+        * на элементе с правильной версткой
+        * Параметры:
+        *  - DOM-элемент, являющийся контейнером списка 
+        *    (уже с нужными дочерними элементами)
+        */ 
+        function Todo(elem) {
+            // Ищем вложенные элементы, которые будут использованы в дальнейшем
+            // Если их не будет - ошибки не возникнет, просто создадутся пустые jQuery-объекты
+            this.eList = elem.find('.todo__list');
+            this.eText = elem.find('.todo__text');
+            this.eButton = elem.find('.todo__add');
+
+            // Кешируем контекст вызова (созданный объект), 
+            // чтобы использовать его в обработчиках
+            var that = this;
+
+            // Добавляем обработчик изменения поля ввода
+            this.eText.on('input', function () {
+            // Поле ввода не пусто => разблокируем кнопку "Добавить", иначе блокируем
+            that.eButton.prop('disabled', !this.value);
+            // здесь this - это тот элемент, на котором случилось событие
+            });
+
+            // Добавляем обработчик нажатия на кнопку "Добавить"
+            // (не сработает, если кнопка заблокирована)
+            this.eButton.on('click', function () {
+            var val = that.eText.val();
+
+            // Если поле ввода не пусто
+            if (val) {
+                // вызываем метод добавления элемента в список
+                that.addItem(val);
+                
+                // очищаем поле и блокируем кнопку 
+                // (при изменении поля в коде обработчик изменения поля не вызывается)
+                that.eText.val('');
+                that.eButton.prop('disabled', true);
+            }
+            });
+            
+            // Добавляем обработчик изменения статусов элементов списка (на сам список)
+            // jQuery позволяет обрабатывать событие на всех дочерних элементах,
+            // попадающих в условие селектора (второй параметр) - 
+            // в данном случае, на всех элементах списка
+            // это позволяет не подписывать обработчик на каждый элемент отдельно
+            this.eList.on('click', '.todo__list-item', function () {
+            var COMPLETED_CLASS = 'todo__list-item_completed_yes';
+            var item = $(this);
+            
+            item.hasClass(COMPLETED_CLASS) ?
+                item.removeClass(COMPLETED_CLASS) :
+                item.addClass(COMPLETED_CLASS);
+            });
+            
+            // Добавляем обработчик клика по удалялке внутри элемента списка
+            // Добавляем тоже на список, чтобы не возиться с каждым элементом по отдельности
+            this.eList.on('click', '.todo__list-item-remove', function (e) {
+            // Ищем ближайший предок, являющийся элементом списка, и удаляем его из DOM.
+            // Если у него были бы првязанные обработчики, .remove() бы их почистил,
+            // но их нет - они заданы на самом списке
+            $(this).closest('.todo__list-item').remove();
+            });
+        }
+
+        /**
+        * Метод добавления задачи в список
+        * Параметры
+        *  - Текст задачи
+        *  - Флаг "выполнена" (сейчас не используется)
+        */
+        Todo.prototype.addItem = function(text, isCompleted) {
+            // jQuery позволяет создавать DOM-объекты из HTML-строки
+            var item = $(
+            '<li class="todo__list-item">'+ 
+                '<span class="todo__list-item-text"></span>' +
+                '<span class="todo__list-item-remove">&#10060;</span>' +
+            '</li>'
+            );
+
+            // Выставляем правильное состояние завершения в зависимости от isCompleted
+            if (isCompleted) {
+            // метод .addClass уже реализован в jQuery, и нам не нужно писать его самим
+            item.addClass('todo__list-item_completed_yes');
+            }
+            
+            // Мы в принципе могли подставить текст в строку, из которой создался элемент списка,
+            // но тогда он был бы воспринят как HTML, а это очень небезопасно - 
+            // нельзя вставлять в страницу HTML от пользователя, не заэкранировав его
+            // см. https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
+            item.find('.todo__list-item-text').text(text);
+            
+            // Вставляем созданный элемент в список
+            this.eList.append(item);
+        }
+        
+        // Инициализируем логику списка задач на элементе с id="list"
+        // Поскольку мы не используем прямые селекторы внутри конструктора,
+        // на странице может одновременно быть несколько списков, 
+        // которые никак друг другу не мешают
+        var todo = new Todo($('#list'));
+        });
+    </script>
+
+
+
+
+
+</body>
+</html>

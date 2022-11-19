@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Плавный scroll jQuery</title>
+	<!--Подключаем jQuery-->
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<style>
+		.nav ul{
+			overflow: hidden;
+		}
+		.nav li{
+			list-style: none;
+			float: left;
+		}
+		#block1{
+			width:100%;
+			height:500px;
+			background-color: #f00;
+		}
+		#block2{
+			width:100%;
+			height:500px;
+			background-color: #0f0;
+		}
+		#block3{
+			width:100%;
+			height:500px;
+			background-color: #00f;
+		}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<ul>
+			<li><a href="#block1">block1</a></li>
+			<li><a href="#block2">block2</a></li>
+			<li><a href="#block3">block3</a></li>
+		</ul>
+	</div>
+	<div id="block1">block1</div>
+	<div id="block2">block2</div>
+	<div id="block3">block3</div>
+</body>
+</html>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+	    jQuery('.nav a[href^="#"]').click( function(){
+	        var scroll_el = jQuery(this).attr('href');
+	        var destination = jQuery(scroll_el).offset().top;
+	        if (jQuery(scroll_el).length != 0) {
+	            jQuery('html, body').animate( { scrollTop: destination }, 1100 );
+	        }
+	        return false;
+	    });
+	})
+</script>

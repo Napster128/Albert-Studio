@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Задания js</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/task1.css">
+    <link rel="shortcut icon" href="assets/img/unnamed.jpg" type="image/x-icon">
+</head>
+<body>
+    <div class="container__item" style="background-image: url(assets/img/moon.jpg); background-size: 100%; background-position: 50%; background-position-x: 500px; background-repeat: no-repeat;">
+        <div class="conteiner__item__head">Задание 1</div>
+
+        <div class = "CalendarDiv" id="z1">
+            <div class="clock__div">
+                <div id="clock">  
+                    <p class="date">{{ date }}</p>  
+                    <p class="time">{{ time }}</p>  
+                </div>
+            </div>
+            <!-- <div style="width:100%; height: 100%; padding:6px;"> -->
+                <table id="calendar" border="0" cellspacing="0" cellpadding="1">
+                    <thead>
+                        <tr>
+                            <td><b>‹</b><td colspan="5"><td><b>›</b>
+                        <tr>
+                            <td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            <!-- </div> -->
+        </div>
+        
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js'></script>
+    <script>
+        var clock = new Vue({  
+            el: '#clock',  
+            data: {  
+            time: '',  
+            date: ''  
+        }  
+        });     
+
+        var week = ['ВС', 'ПОН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СУБ'];  
+        var timerID = setInterval(updateTime, 1000);  
+        updateTime();  
+        
+        function updateTime() {  
+            var cd = new Date();  
+            clock.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);  
+            clock.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getDate(), 2) + '-' + zeroPadding(cd.getMonth() + 1, 2) + ' ' + week[cd.getDay()];  
+        };  
+
+        function zeroPadding(num, digit) {  
+            var zero = '';  
+            for (var i = 0; i < digit; i++) {  
+            zero += '0';  
+            }  
+            return (zero + num).slice(-digit);  
+        }  
+    </script>
+
+    <script>
+        function calendar(id, year, month) {
+        var Dlast = new Date(year,month+1,0).getDate(),
+            D = new Date(year,month,Dlast),
+            DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
+            DNfirst = new Date(D.getFullYear(),D.getMonth(),1).getDay(),
+            calendar = '<tr>',
+            month=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+        if (DNfirst != 0) {
+        for(var  i = 1; i < DNfirst; i++) calendar += '<td>';
+        }else{
+        for(var  i = 0; i < 6; i++) calendar += '<td>';
+        }
+        for(var  i = 1; i <= Dlast; i++) {
+        if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth()) {
+            calendar += '<td class="today">' + i;
+        }else{
+            calendar += '<td>' + i;
+        }
+        if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0) {
+            calendar += '<tr>';
+        }
+        }
+        for(var  i = DNlast; i < 7; i++) calendar += '<td> ';
+        document.querySelector('#'+id+' tbody').innerHTML = calendar;
+        document.querySelector('#'+id+' thead td:nth-child(2)').innerHTML = month[D.getMonth()] +' '+ D.getFullYear();
+        document.querySelector('#'+id+' thead td:nth-child(2)').dataset.month = D.getMonth();
+        document.querySelector('#'+id+' thead td:nth-child(2)').dataset.year = D.getFullYear();
+        if (document.querySelectorAll('#'+id+' tbody tr').length < 6) {  // чтобы при перелистывании месяцев не "подпрыгивала" вся страница, добавляется ряд пустых клеток. Итог: всегда 6 строк для цифр
+            document.querySelector('#'+id+' tbody').innerHTML += '<tr><td> <td> <td> <td> <td> <td> <td> ';
+        }
+        }
+        
+        calendar("calendar", new Date().getFullYear(), new Date().getMonth());
+        // переключатель минус месяц
+        document.querySelector('#calendar thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
+            calendar("calendar", document.querySelector('#calendar thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar thead td:nth-child(2)').dataset.month)-1);
+        }
+        // переключатель плюс месяц
+        document.querySelector('#calendar thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
+            calendar("calendar", document.querySelector('#calendar thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar thead td:nth-child(2)').dataset.month)+1);
+        }
+    </script>
+</body>
+</html>
